@@ -1,0 +1,13 @@
+.table1 {
+  display: inline-block;
+  border-spacing: 0;
+  border: 1px solid black;
+}
+
+.th1,
+.td1 {
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
