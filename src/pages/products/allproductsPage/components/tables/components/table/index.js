@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 import {
   useTable,
   useSortBy,
@@ -6,7 +6,7 @@ import {
   useGlobalFilter,
   usePagination,
 } from 'react-table';
-import MOCK_DATA from '../../../../../../utils/tables-data.json';
+import MOCK_DATA from '../../../../../../../utils/tables-data.json';
 import columnsData from './Columns';
 
 // ui

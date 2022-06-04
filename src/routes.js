@@ -43,11 +43,13 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
-import ProductsPage from './pages/products';
+import ProductsPage from './pages/products/index';
 import HomePage from './pages/home';
 // import LoginPage from './pages/login';
 // import ProtectRoute from './utils/ProtectRoute';
 import Charts from './pages/charts';
+import Product from './pages/products/oneProductPage/Product';
+import AllProducts from './pages/products/allproductsPage/AllProducts';
 
 function Router() {
   return useRoutes([
@@ -60,17 +62,28 @@ function Router() {
       ),
       children: [
         {
-          path: '/',
+          path: '',
           element: <HomePage />,
         },
         {
           path: 'products',
           element: <ProductsPage />,
+          children: [
+            {
+              path: '',
+              element: <AllProducts />,
+            },
+            {
+              path: ':id',
+              element: <Product />,
+            },
+          ],
         },
         {
           path: 'charts',
           element: <Charts />,
         },
+
         // {
         //   path: 'test3',
         //   element: <ProductsPage />,

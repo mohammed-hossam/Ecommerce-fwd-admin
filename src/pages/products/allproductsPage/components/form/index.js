@@ -5,7 +5,7 @@ import { Button, Grid, Paper, Typography } from '@mui/material';
 import InputContainer from './fieldsContainers/Input';
 import SelectContainer from './fieldsContainers/Select';
 import DataTimePickerContainer from './fieldsContainers/DataTimePicker';
-import Deposits from '../../../home/components/Deposits';
+import Deposits from '../../../../home/components/Deposits';
 
 const intialFormikState = {
   name: '',
