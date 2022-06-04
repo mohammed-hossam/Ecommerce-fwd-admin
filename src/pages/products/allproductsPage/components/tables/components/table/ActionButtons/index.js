@@ -7,10 +7,11 @@ import { productsFormModalContext } from '../../../../../../context';
 
 //context
 
-function ActionButtons() {
+function ActionButtons(props) {
+  // console.log(props.row.values);
   //context
   const productsFormModalContextData = useContext(productsFormModalContext);
-  console.log(productsFormModalContextData);
+  // console.log(productsFormModalContextData);
 
   return (
     <Box>
@@ -20,7 +21,12 @@ function ActionButtons() {
 
       <IconButton
         aria-label="edit"
-        onClick={productsFormModalContextData.handleOpen}
+        onClick={() => {
+          productsFormModalContextData.handleOpen();
+          productsFormModalContextData.setSelectedRowDataToEdit(
+            props.row.values
+          );
+        }}
       >
         <EditIcon />
       </IconButton>

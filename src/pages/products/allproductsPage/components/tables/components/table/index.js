@@ -45,9 +45,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function ReactTable() {
+function ReactTable({ products }) {
   const columns = useMemo(() => columnsData, []);
-  const data = useMemo(() => MOCK_DATA, []);
+  const data = useMemo(() => products || [], [products]);
   const defaultColumn = useMemo(() => {
     return {
       Filter: ColFilter,
@@ -165,7 +165,7 @@ function ReactTable() {
                     })
                   }
                   <TableCell style={{ display: 'inline' }}>
-                    <ActionButtons />
+                    <ActionButtons row={row} />
                   </TableCell>
                 </StyledTableRow>
               );

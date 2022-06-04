@@ -6,7 +6,7 @@ const columns = [
   {
     // Column Options
     Header: 'Id',
-    accessor: 'id', // accessor is the "key" in the data
+    accessor: '_id', // accessor is the "key" in the data
   },
   {
     Header: 'Name',
@@ -31,6 +31,10 @@ const columns = [
   {
     Header: 'Quantity',
     accessor: 'quantity',
+  },
+  {
+    Header: 'Rating',
+    accessor: 'rating',
   },
   //  {
   //    Header: 'تاريخ الميلاد',

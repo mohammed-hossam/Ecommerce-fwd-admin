@@ -7,6 +7,7 @@ import TablesMain from './components/tables';
 import axiosInstance from '../../../services/axiosInstance';
 import styles from './products.module.css';
 import useFetch from '../../../customHooks/useFetch';
+import { Toaster } from 'react-hot-toast';
 
 // context
 import { productsFormModalContext } from '../context/index';
@@ -14,14 +15,27 @@ import { productsFormModalContext } from '../context/index';
 function ProductsPage() {
   const [open, setOpen] = useState(false);
   const handleOpen = useCallback(() => setOpen(true), []);
-  const handleClose = useCallback(() => setOpen(false), []);
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    setSelectedRowDataToEdit({});
+  }, []);
+
+  const [selectedRowDataToEdit, setSelectedRowDataToEdit] = useState({});
+  const [fetchData, setFetchData] = useState(true);
+  console.log(fetchData);
 
   // async function getProductsFromServer() {
   //   const data = await axiosInstance.get('./products');
   //   console.log(data);
   // }
 
-  const { products: data, loading, error } = useFetch('./products', 'get');
+  const { data, loading, error } = useFetch(
+    fetchData,
+    setFetchData,
+    './products'
+  );
+  const products = data?.data;
+  console.log(products);
   console.log(22222);
 
   useEffect(() => {
@@ -32,7 +46,10 @@ function ProductsPage() {
   return (
     <>
       {/* Modal to add new rows in the table */}
-      <productsFormModalContext.Provider value={{ handleOpen }}>
+      <Toaster />
+      <productsFormModalContext.Provider
+        value={{ handleOpen, setSelectedRowDataToEdit }}
+      >
         <Button onClick={handleOpen} variant="contained">
           Add product
         </Button>
@@ -43,18 +60,22 @@ function ProductsPage() {
           aria-describedby="modal-modal-description"
         >
           <Box className={styles.add_product_modal}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
+            <Typography id="modal-modal-title" variant="h5" component="h2">
+              Product
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              product details
             </Typography>
-            <Forms />
+            <Forms
+              selectedRowDataToEdit={selectedRowDataToEdit}
+              setFetchData={setFetchData}
+              handleClose={handleClose}
+            />
           </Box>
         </Modal>
 
         {/* the table to show the data */}
-        <TablesMain />
+        {loading ? <p>Loading</p> : <TablesMain products={products} />}
       </productsFormModalContext.Provider>
     </>
   );

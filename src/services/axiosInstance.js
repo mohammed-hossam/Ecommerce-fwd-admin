@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axiosApiInstance = axios.create({
+const axiosInstance = axios.create({
   baseURL: 'https://e-shop-udacity-13.herokuapp.com',
 });
 
@@ -35,4 +35,4 @@ const axiosApiInstance = axios.create({
 //   }
 // );
 
-export default axiosApiInstance;
+export default axiosInstance;

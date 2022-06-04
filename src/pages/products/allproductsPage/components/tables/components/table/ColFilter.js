@@ -2,7 +2,7 @@ import { Box, FormControl, Input, InputLabel, TextField } from '@mui/material';
 import React from 'react';
 
 function ColFilter(props) {
-  console.log(props);
+  // console.log(props);
   const { filterValue, setFilter } = props.column;
   const handleChange = (event) => {
     setFilter(event.target.value);
