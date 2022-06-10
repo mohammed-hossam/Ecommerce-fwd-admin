@@ -44,12 +44,15 @@ import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
 import ProductsPage from './pages/products/index';
+import CategoriesPage from './pages/categories/index';
 import HomePage from './pages/home';
 // import LoginPage from './pages/login';
 // import ProtectRoute from './utils/ProtectRoute';
 import Charts from './pages/charts';
 import Product from './pages/products/oneProductPage/Product';
 import AllProducts from './pages/products/allproductsPage/AllProducts';
+import AllCategories from './pages/categories/allCategories/AllCategories';
+import AddCategory from './pages/categories/addCategory/AddCategory';
 
 function Router() {
   return useRoutes([
@@ -82,6 +85,20 @@ function Router() {
         {
           path: 'charts',
           element: <Charts />,
+        },
+        {
+          path: 'categories',
+          element: <CategoriesPage />,
+          children: [
+            {
+              path: '',
+              element: <AllCategories />,
+            },
+            {
+              path: 'add',
+              element: <AddCategory />,
+            },
+          ],
         },
 
         // {

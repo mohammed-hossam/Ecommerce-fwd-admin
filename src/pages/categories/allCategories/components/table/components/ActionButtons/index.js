@@ -1,19 +1,19 @@
-import { Fab, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useContext } from 'react';
-import { productsFormModalContext } from '../../../../../../context';
-import axiosInstance from '../../../../../../../../services/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../../../../../../services/axiosInstance';
+
 import { toast } from 'react-hot-toast';
 
-//context
+import { categoriesContext } from '../../../../../context/index';
 
-function ActionButtons(props) {
-  // console.log(props.row.values);
-  //context
-  const productsFormModalContextData = useContext(productsFormModalContext);
-  // console.log(productsFormModalContextData);
+function ActionButtons({ row }) {
+  const navigate = useNavigate();
+  // console.log(row);
+  const categoriesContextData = useContext(categoriesContext);
 
   return (
     <Box>
@@ -22,17 +22,17 @@ function ActionButtons(props) {
         onClick={async () => {
           try {
             const data = await axiosInstance.delete(
-              `/product/${props.row.values._id}`
+              `/category/${row.values._id}`
             );
             console.log(data);
-            toast.success('product is removed successfully');
-            productsFormModalContextData.setFetchData(true);
+            toast.success('category is removed successfully');
+            categoriesContextData.setFetchData(true);
           } catch (err) {
             console.log(err);
             console.log(err.message);
             console.log(err.response.data.message);
             toast.error(
-              'product removing failed \n' + err.response.data.message
+              'category removing failed \n' + err.response.data.message
             );
           }
         }}
@@ -43,10 +43,7 @@ function ActionButtons(props) {
       <IconButton
         aria-label="edit"
         onClick={() => {
-          productsFormModalContextData.handleOpen();
-          productsFormModalContextData.setSelectedRowDataToEdit(
-            props.row.values
-          );
+          navigate('/categories/add', { state: { rowData: row.values } });
         }}
       >
         <EditIcon />

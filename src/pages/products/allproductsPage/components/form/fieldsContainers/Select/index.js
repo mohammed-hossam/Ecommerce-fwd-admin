@@ -9,7 +9,7 @@ import { Field } from 'formik';
 import React from 'react';
 
 function SelectContainer(props) {
-  const { name, label } = props;
+  const { name, label, categories } = props;
 
   return (
     <Field name={name}>
@@ -52,7 +52,7 @@ function SelectContainer(props) {
           //   <FormHelperText>اختر البلد</FormHelperText>
           // </FormControl>
           <FormControl
-            sx={{ m: 1, minWidth: 120, direction: 'rtl' }}
+            sx={{ width: '100%' }}
             error={form.errors[name] && form.touched[name] ? true : false}
           >
             <InputLabel
@@ -73,11 +73,15 @@ function SelectContainer(props) {
               label={label}
               // sx={{ textAlign: 'right' }}
               {...field}
-              renderValue={(value) => ` البلد ${value}`}
+              renderValue={(value) => `${value} Category`}
             >
-              <MenuItem value={'مصر'}>مصر</MenuItem>
-              <MenuItem value={'اطاليا'}>اطاليا</MenuItem>
-              <MenuItem value={'امريكا'}>امريكا</MenuItem>
+              {categories?.map((category) => {
+                return (
+                  <MenuItem value={category.name} key={category._id}>
+                    {category.name}
+                  </MenuItem>
+                );
+              })}
             </Select>
             {form.errors[name] && form.touched[name] && (
               <FormHelperText

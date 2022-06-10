@@ -1,14 +1,14 @@
 import React from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Button, Grid, Paper, Typography } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import InputContainer from './fieldsContainers/Input';
 import InputContainerTextArea from './fieldsContainers/TextArea';
 import SelectContainer from './fieldsContainers/Select';
-import DataTimePickerContainer from './fieldsContainers/DataTimePicker';
-import Deposits from '../../../../home/components/Deposits';
+// import DataTimePickerContainer from './fieldsContainers/DataTimePicker';
 import axiosInstance from '../../../../../services/axiosInstance';
 import { toast } from 'react-hot-toast';
+
 const yupvalidationSchema = Yup.object().shape({
   name: Yup.string()
     .matches(/[A-Z]/gi, 'please enter a correct name')
@@ -35,7 +35,12 @@ const yupvalidationSchema = Yup.object().shape({
     .typeError('please enter a correct description'),
 });
 
-function Forms({ selectedRowDataToEdit, setFetchData, handleClose }) {
+function Forms({
+  selectedRowDataToEdit,
+  setFetchData,
+  handleClose,
+  categories,
+}) {
   const intialFormikState = {
     name: selectedRowDataToEdit.name || '',
     price: selectedRowDataToEdit.price || 0,
@@ -46,17 +51,16 @@ function Forms({ selectedRowDataToEdit, setFetchData, handleClose }) {
   };
 
   async function handleSubmit(values) {
-    console.log(values);
-    console.log(Object.keys(selectedRowDataToEdit));
+    // console.log(values);
 
     if (Object.keys(selectedRowDataToEdit).length > 0) {
       try {
         const data = await axiosInstance.put(
-          `/products/${selectedRowDataToEdit._id}`,
+          `/product/${selectedRowDataToEdit._id}`,
           values
         );
         console.log(data);
-        toast.success('product edited');
+        toast.success('product edited successfully');
         handleClose();
         setFetchData(true);
       } catch (error) {
@@ -66,9 +70,9 @@ function Forms({ selectedRowDataToEdit, setFetchData, handleClose }) {
       }
     } else {
       try {
-        const data = await axiosInstance.post('/products', values);
+        const data = await axiosInstance.post('/product', values);
         console.log(data);
-        toast.success('product added');
+        toast.success('product added successfully');
         handleClose();
         setFetchData(true);
       } catch (error) {
@@ -96,7 +100,11 @@ function Forms({ selectedRowDataToEdit, setFetchData, handleClose }) {
                   <InputContainer name="name" label="name" />
                 </Grid>
                 <Grid item xs={6}>
-                  <InputContainer name="category" label="category" />
+                  <SelectContainer
+                    name="category"
+                    label="category"
+                    categories={categories}
+                  />
                 </Grid>
                 <Grid item xs={6}>
                   <InputContainer name="price" label="price" />

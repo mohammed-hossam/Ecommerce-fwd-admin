@@ -21,26 +21,26 @@ function ProductsPage() {
   }, []);
 
   const [selectedRowDataToEdit, setSelectedRowDataToEdit] = useState({});
-  const [fetchData, setFetchData] = useState(true);
-  console.log(fetchData);
+  const [categories, setCategories] = useState([]);
+  const [fetchData, setFetchData] = useState(true); //to trigger fetching data(of products) any time we want
 
-  // async function getProductsFromServer() {
-  //   const data = await axiosInstance.get('./products');
-  //   console.log(data);
-  // }
-
+  //get products
   const { data, loading, error } = useFetch(
     fetchData,
     setFetchData,
-    './products'
+    './product'
   );
   const products = data?.data;
   console.log(products);
-  console.log(22222);
 
+  //get categories for the select dropdown menu
   useEffect(() => {
-    console.log(44444);
-    // getProductsFromServer();
+    async function getCategories() {
+      const data = await axiosInstance.get('/category');
+      setCategories(data.data);
+    }
+
+    getCategories();
   }, []);
 
   return (
@@ -48,7 +48,7 @@ function ProductsPage() {
       {/* Modal to add new rows in the table */}
       <Toaster />
       <productsFormModalContext.Provider
-        value={{ handleOpen, setSelectedRowDataToEdit }}
+        value={{ handleOpen, setSelectedRowDataToEdit, setFetchData }}
       >
         <Button onClick={handleOpen} variant="contained">
           Add product
@@ -70,6 +70,7 @@ function ProductsPage() {
               selectedRowDataToEdit={selectedRowDataToEdit}
               setFetchData={setFetchData}
               handleClose={handleClose}
+              categories={categories}
             />
           </Box>
         </Modal>
