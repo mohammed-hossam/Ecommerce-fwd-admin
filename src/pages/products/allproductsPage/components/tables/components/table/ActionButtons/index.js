@@ -2,21 +2,26 @@ import { Fab, IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PermMediaIcon from '@mui/icons-material/PermMedia';
 import React, { useContext } from 'react';
 import { productsFormModalContext } from '../../../../../../context';
 import axiosInstance from '../../../../../../../../services/axiosInstance';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 //context
 
 function ActionButtons(props) {
   // console.log(props.row.values);
+  // console.log(props.row.original);
   //context
+  const navigate = useNavigate();
+
   const productsFormModalContextData = useContext(productsFormModalContext);
   // console.log(productsFormModalContextData);
 
   return (
-    <Box>
+    <Box sx={{ display: 'inline-flex' }}>
       <IconButton
         aria-label="delete"
         onClick={async () => {
@@ -50,6 +55,17 @@ function ActionButtons(props) {
         }}
       >
         <EditIcon />
+      </IconButton>
+
+      <IconButton
+        aria-label="edit"
+        onClick={() => {
+          navigate(`/products/media/${props.row.values._id}`, {
+            state: { rowData: props.row.original },
+          });
+        }}
+      >
+        <PermMediaIcon />
       </IconButton>
     </Box>
   );

@@ -49,7 +49,7 @@ import HomePage from './pages/home';
 // import LoginPage from './pages/login';
 // import ProtectRoute from './utils/ProtectRoute';
 import Charts from './pages/charts';
-import Product from './pages/products/oneProductPage/Product';
+import ProductMedia from './pages/products/oneProductMediaPage/ProductMedia';
 import AllProducts from './pages/products/allproductsPage/AllProducts';
 import AllCategories from './pages/categories/allCategories/AllCategories';
 import AddCategory from './pages/categories/addCategory/AddCategory';
@@ -77,8 +77,8 @@ function Router() {
               element: <AllProducts />,
             },
             {
-              path: ':id',
-              element: <Product />,
+              path: 'media/:id',
+              element: <ProductMedia />,
             },
           ],
         },

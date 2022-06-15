@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Input } from '@mui/material';
 import InputContainer from './fieldsContainers/Input';
 import InputContainerTextArea from './fieldsContainers/TextArea';
 import SelectContainer from './fieldsContainers/Select';
@@ -83,6 +83,10 @@ function Forms({
     }
   }
 
+  function handleUploadImages(e) {
+    console.log(e.target.files);
+  }
+
   return (
     <Formik
       initialValues={intialFormikState}
@@ -118,6 +122,25 @@ function Forms({
                     label="description"
                   />
                 </Grid>
+                {Object.keys(selectedRowDataToEdit).length > 0 && (
+                  <Grid item xs={6}>
+                    <label htmlFor="contained-button-file">
+                      <input
+                        accept="image/png, image/jpeg"
+                        id="contained-button-file"
+                        type="file"
+                        multiple
+                        style={{ display: 'none' }}
+                        onChange={handleUploadImages}
+                      />
+
+                      <Button variant="contained" component="span">
+                        Upload Images
+                      </Button>
+                    </label>
+                  </Grid>
+                )}
+
                 {/* <Grid item xs={6}>
                   <InputContainer name="rating" label="rating" />
                 </Grid> */}

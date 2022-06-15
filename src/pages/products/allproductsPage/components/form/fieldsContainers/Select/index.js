@@ -70,6 +70,7 @@ function SelectContainer(props) {
             <Select
               labelId="demo-simple-select-error-label"
               id="demo-simple-select-error"
+              variant="filled"
               label={label}
               // sx={{ textAlign: 'right' }}
               {...field}

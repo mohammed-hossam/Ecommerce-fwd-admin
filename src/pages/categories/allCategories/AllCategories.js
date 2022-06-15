@@ -31,7 +31,9 @@ function AllCategories() {
         <Button variant="contained" component={RouterLink} to="/categories/add">
           Add Category
         </Button>
-        {loading ? (
+        {error ? (
+          <p>{error}</p>
+        ) : loading ? (
           <p>Loading</p>
         ) : (
           <>

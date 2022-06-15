@@ -76,7 +76,13 @@ function ProductsPage() {
         </Modal>
 
         {/* the table to show the data */}
-        {loading ? <p>Loading</p> : <TablesMain products={products} />}
+        {error ? (
+          <p>{error}</p>
+        ) : loading ? (
+          <p>Loading</p>
+        ) : (
+          <TablesMain products={products} />
+        )}
       </productsFormModalContext.Provider>
     </>
   );
